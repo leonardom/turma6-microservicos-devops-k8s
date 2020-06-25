@@ -5,6 +5,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 8000
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
   selector:
     app: desafio-k8s-go
