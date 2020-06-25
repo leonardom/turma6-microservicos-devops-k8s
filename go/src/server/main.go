@@ -14,5 +14,5 @@ func handler(res http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8000", nil))
 }
