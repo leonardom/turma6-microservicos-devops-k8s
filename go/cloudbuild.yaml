@@ -1,0 +1,22 @@
+steps:
+  - id: "Running tests..."
+    name: "gcr.io/cloud-builders/go"
+    args: ["test", "greeting"]
+    env: ["GOPATH=./go"]
+  
+  - id: "Building docker image..."
+    name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/desafio-k8s-go:latest", "./go/."]
+  
+  - id: "Pushing image to repository..."
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/desafio-k8s-go:latest"]
+
+  - id: "Deploying to Kubernetes Cluster..."
+    name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=./go/k8s
+      - --image=gcr.io/$PROJECT_ID/desafio-k8s-go:latest
+      - --location=${_CLOUDSDK_COMPUTE_ZONE}
+      - --cluster=${_CLOUDSDK_CONTAINER_CLUSTER}

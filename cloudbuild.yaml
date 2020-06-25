@@ -1,4 +1,0 @@
-steps:
-  - id: "Rodando testes..."
-    name: "gcr.io/cloud-builders/go"
-    args: ["test", "greeting"]
